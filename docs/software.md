@@ -2,11 +2,12 @@
 title: Software
 parent: Generation 3
 has_children: true
+nav_order: 2
 ---
 
 # Overview
 
-This project documents the hardware and software of an updated version of the Panels, a modular display system typically used for insect vision research. This is an update of [the old panel system](Old_Panels_Info), which we call the Panel Display Controller (PDC) v2. The new system, PDC v3, uses four parallel I2C channels to transfer pattern data from the panel display controller to the arena, making these system nearly 4 times faster as compared to PDC v2. Several other improvements have been added to the system to make it more flexible and user-friendly, these are detailed below.  
+This project documents the hardware and software of an updated version of the Panels, a modular display system typically used for insect vision research. This is an update of [the old panel system](/Generation%203/Software/docs/g2-panels.html), which we call the Panel Display Controller (PDC) v2. The new system, PDC v3, uses four parallel I2C channels to transfer pattern data from the panel display controller to the arena, making these system nearly 4 times faster as compared to PDC v2. Several other improvements have been added to the system to make it more flexible and user-friendly, these are detailed below.  
 
 
 This repository includes the code for several related projects:
