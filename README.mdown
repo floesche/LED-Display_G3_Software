@@ -1,8 +1,3 @@
----
-title: G3 Software
-nav_exclude: true
----
-
 # Modular display system, Generation 3 Software
 
 This repository contains information related to the 3rd generation of modular
