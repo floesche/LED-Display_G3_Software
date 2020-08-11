@@ -1,0 +1,12 @@
+# Modular display system, Generation 3 Software
+
+This repository contains information related to the 3rd generation of modular
+displays, as described in:
+
+Reiser, Michael B.; Dickinson, Michael H. (2008): „A modular display system for insect behavioral neuroscience“. In: *Journal of Neuroscience Methods*. 167 (2), pp.&nbsp;127–139, DOI: [10.1016/j.jneumeth.2007.07.019](https://doi.org/10.1016/j.jneumeth.2007.07.019).
+
+
+More information is available on the [Modular LED Display Site](https://reiserlab.github.io/Modular-LED-Display).
+
+*This repository used to live on https://bitbucket.org/mreiser before June 2020.*
+
