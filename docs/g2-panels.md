@@ -42,13 +42,13 @@ There are some basic tools needed to use the system:
 
 # Download Code & PCB files
 
-This code is no longer officially supported or maintained, but has been used for years by at least 10 labs. The code is distributed “as is”; it works for me and I hope it works for you. **Michael Reiser and the Dickinson Lab are not liable for any damage caused by using (or misusing) this code.** Remember, programming microcontrollers is not as safe as PC programming, extreme caution must be taken to ensure that all connections are correct, and that the circuit boards are functioning – if anything smells like it is burning or gets hot – turn off immediately and recheck everything. 
+This code is no longer officially supported or maintained, but has been used for years by at least 10 labs. The code is distributed "as is"; it works for me and I hope it works for you. **Michael Reiser and the Dickinson Lab are not liable for any damage caused by using (or misusing) this code.** Remember, programming microcontrollers is not as safe as PC programming, extreme caution must be taken to ensure that all connections are correct, and that the circuit boards are functioning – if anything smells like it is burning or gets hot – turn off immediately and recheck everything. 
 
 - [Panel Files Release 2](https://github.com/reiserlab/Panel-G3-Software/blob/master/assets/Panels_R2.zip)
 
 There are many changes that are included in the second release:
 
-- New control modes, numeric position control. This uses the function generator to numerically specify the current position. Implemented as a (signed) offset to the position specified by `Panel_com(‘set_position’, [X,Y])`.
+- New control modes, numeric position control. This uses the function generator to numerically specify the current position. Implemented as a (signed) offset to the position specified by `Panel_com('set_position', [X,Y])`.
 - System can now support much larger patterns – previously a frame was limited to one block of the CF memory – 512 bytes. Now multi-block frames are supported. Tested with 48 panel gscale patterns (1152 bytes per frame). 
 - CF reading is slightly faster, no longer reads entire block, but stops once the number of bytes in the frame have been read. 
 - Row compression: for patterns that consist of identical data for all rows of the pattern. RC is enabled by setting pattern.row_compression = 1; in  the pattern-making script. An RC pattern will just consist of one row instead of 8, resulting is a speedup factor of at least 5. This feature required modification to the code on the main and CF controllers, the panel code, and a few of the MATLAB pattern making and displaying routines. 
@@ -126,7 +126,7 @@ The software running on the Controller is essentially the intermediary between t
 
 ### Programming the Controller
 
-Programming the controller is similar to the process for programming each panel. There is a 6-pin ISP interface for both of the controller board’s Atmega128 microprocessors. Let’s program the main controller first:
+Programming the controller is similar to the process for programming each panel. There is a 6-pin ISP interface for both of the controller board's Atmega128 microprocessors. Let's program the main controller first:
 
 1. Power the Controller board if using the AVR ISP, otherwise power the STK 500, and connect the programming device to the 6 pin Controller ISP header (labeled J7 on the PCB).
 2. Open AVR Studio and start the AVR programming tool STK500/AVRISP from the tools menu.
@@ -145,7 +145,7 @@ As presented the system is fully functional and has been in regular use for more
 
 - programming of the panels from the Matlab GUI, maybe even address them during programming. This would be done using the command line interface to the AVR Studio, or similar. **Possible but not yet implemented in PDC v3.**
 - A small box that converts ±5 V to two distinct 0-5 V lines, mapping positive voltage to one and negative to the other. This would really simplify using certain signals with controller. Ideally, put 2 of these in one box (will need independent power). **Not necessary with PDC v3, since inputs and outputs can go ±5 V.**
-- program panels when they are plugged in, so they don’t need to be programmed independently. Apparently this is possible, especially since the panels are set up to communicate with the TWI interface. Look at **Boot Loader Support** section in the AVR documentation. **PDC v3 and more recent software development supports this.**
+- program panels when they are plugged in, so they don't need to be programmed independently. Apparently this is possible, especially since the panels are set up to communicate with the TWI interface. Look at **Boot Loader Support** section in the AVR documentation. **PDC v3 and more recent software development supports this.**
 - re-mapable greenscales – the idea here is to be able to use binary, 2 level, patters and then be able to arbitrarily map the 0 and 1 values to any of the 8 greenscale levels. This scheme has basically been worked out (is in the distributed panels code, but commented out). This system needs to be tested, etc.
 - more efficient CF reading – that would start moving the bytes from the FIFO before the pattern is completely dumped – this should provide at least 10% faster frame rates. **Superseded by faster SD card reading in PDC v3**
 - more user-friendly installation that checks the CF card location, makes a temp folder if necessary, etc. 
@@ -183,12 +183,12 @@ These parts are required to make 1 controller:
 |4      |   22 pF (20%) capacitors         |Jameco, 15405 ($0.05)|
 |3      |   9-pin fem. rt. angle D-sub     |Jameco, 104951 ($0.50)|
 |1      |   5 pin fem. DIN connector       |Jameco, 29399 ($0.50)|
-|1-2    |   male single row “0.1 header    |Jameco, 160881 ($0.40)|
+|1-2    |   male single row 0.1" header    |Jameco, 160881 ($0.40)|
 |4      |   fem. single row header, 8 pin  |Jameco, 70754 ($0.40)|
 |2      |   TWI resistors – std. 1k Ohm    |Jameco, 29663 (peanuts)|
 |1      |   SPST toggle switch             |Jameco, 76523 ($1.00)|
-|1      |   power supply, 5V, min. 2A	   |  Jameco, 221487 (w DIN conn.) ($35)	|
-|1      |   Controller PCB		   |  ordered from Advanced Circuits |
+|1      |   power supply, 5V, min. 2A      |Jameco, 221487 (w DIN conn.) ($35) |
+|1      |   Controller PCB                 |ordered from Advanced Circuits |
 
 Notes: male single row headers are needed in sizes of 2 and 3 - easiest thing to do is cut these from a larger strip. Female single row headers are needed in 8 row size, so easiest thing is to order these as a pre-sized piece from Jameco (also needed for flight arenas).
 
