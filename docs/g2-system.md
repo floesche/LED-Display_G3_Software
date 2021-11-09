@@ -9,14 +9,13 @@ nav_order: 20
 
 Author: [Michael Reiser](https://github.com/mbreiser)
 
-This is a rather new system and still has a very small user community. As we get more users, it is very important to make use of peoples' experiences, suggestions, and improvements. I am especially eager to have people offer to improve the documentation. Please send any updates, improvements, troubleshooting suggestions, etc. to the mailing list (after joining it, of course). This page documents the technical details of the system. A [user guide](https://github.com/reiserlab/Panel-G3-Software/blob/master/assets/flight_simulator_user_guide3.doc), written by Mark Frye, Michael Dickinson, and Michael Reiser, introduces new users to this system (and its use as a flight arena for flies).
-
+This is a rather new system and still has a very small user community. As we get more users, it is very important to make use of peoples' experiences, suggestions, and improvements. I am especially eager to have people offer to improve the documentation. Please send any updates, improvements, troubleshooting suggestions, etc. to the mailing list (after joining it, of course). This page documents the technical details of the system. A [user guide](assets/flight_simulator_user_guide3.doc), written by Mark Frye, Michael Dickinson, and Michael Reiser, introduces new users to this system (and its use as a flight arena for flies).
 
 # System Overview
 
 The system has been designed to allow for rapid development of behavioral (visual) stimuli. There are three components to the system:
 
-- **The panels** - the actual display. These are 8x8 dot matrix displays of LEDs with some electronics to drive the display.
+- **The panels** - the actual display. These are 8×8 dot matrix displays of LEDs with some electronics to drive the display.
 - **The controller** - a custom designed microprocessor circuit that communicates with a PC via the serial port and to the panels using a rapid serial interface (TWI). Note that TWI is Atmel's name for their own implementation of the I2C bus, a standard developed by Phillips.
 - **PC software** - written in Matlab, there are tools for generating patterns and sending commands to the controller.
 
@@ -24,9 +23,9 @@ In all the documentation that follows, we will try to use this terminology consi
 
 - **The system** - refers to all of the components: controllers, panels, etc.
 - **Setup** - refers to your particular configuration. This is mostly used in the context of the particular way in which you have the panels connected to the controller.
-- **The Controller** - refers to the controller circuit board that is described in Section controller. This can be somewhat confusing, because the panels and controller boards both have microcontrollers on them, which both act as controllers. Furthermore, the Matlab program is also controlling the controller. However, *the controller* will always refer to the controller circuit. 
+- **The Controller** - refers to the controller circuit board that is described in Section controller. This can be somewhat confusing, because the panels and controller boards both have microcontrollers on them, which both act as controllers. Furthermore, the Matlab program is also controlling the controller. However, *the controller* will always refer to the controller circuit.
 - **A Panel** - refers to the module that is composed of both the circuit board and the LED display.
-- **PControl** - is the name of the Matlab gui. 
+- **PControl** - is the name of the Matlab gui.
 
 # Installation and Prerequisites
 
@@ -34,37 +33,36 @@ There are some basic tools needed to use the system:
 
 - A PC running a recent version of Windows. The PC must have at least 1 serial port, although 2 (or even 3) would be useful. To easily add serial ports to your computer, consider a USB to Serial converter. [Here are some](http://www.usbgear.com/USB-Serial.html).
 - [MATLAB](https://www.mathworks.com ) installed on this PC - the code should work on all Matlab releases, but is currently only tested on releases from 2009 onwards.
-- A Programming device for the Atmel microcontrollers. Either the [AVR ISP mkII](http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3808&category_id=163&family_id=607&subfamily_id=760) or the [AVR STK500](http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2735). The AVR ISP [Digikey p/n ATAVRISP2-ND](https://www.digikey.com/products/en?keywords=ATAVRISP2-ND) is a stand alone programmer that connects to a PC via USB on one end, and has the 6 pin programming interface which is used to program the controller and the panels. The [AVR STK500](https://www.digikey.com/short/z9zd3h) has the programming interface, but is also a starter kit and development system for Atmel microcontrollers.
-- AVR studio or other set of AVR tools - this is useful if you plan to make any modifications to the software running on either the controller or the panels. The AVR studio has a nice GUI for programming Atmel microcontrollers through either the AVR ISP or AVR STK500. More information at www.atmel.com and www.avrfreaks.net. 
+- A Programming device for the Atmel microcontrollers. Either the [AVR ISP mkII](http://www.atmel.com/dyn/products/tools_card.asp?tool_id=3808&category_id=163&family_id=607&subfamily_id=760) or the [AVR STK500](http://www.atmel.com/dyn/products/tools_card.asp?tool_id=2735). The AVR ISP [Digi-Key p/n ATAVRISP2-ND](https://www.digikey.com/products/en?keywords=ATAVRISP2-ND) is a stand alone programmer that connects to a PC via USB on one end, and has the 6 pin programming interface which is used to program the controller and the panels. The [AVR STK500](https://www.digikey.com/short/z9zd3h) has the programming interface, but is also a starter kit and development system for Atmel microcontrollers.
+- AVR studio or other set of AVR tools - this is useful if you plan to make any modifications to the software running on either the controller or the panels. The AVR studio has a nice GUI for programming Atmel microcontrollers through either the AVR ISP or AVR STK500. More information at www.atmel.com and www.avrfreaks.net.
 - Power supplies - see section [Controller Hardware](#controller-hardware) for details.
-- Compact Flash (CF) card and reader. Any USB-based CF (or multi-format) reader will work. Even large patterns only require space measured in kilobytes, so any available CF card will be large enough, but it is advisable to get a high speed card. The fastest card we measured was a 128 MB Dane-Elec 45X card. Note: currently the system seems not to work with cards that are larger than 128 MB. This is certainly a solvable problem, but buying 128 MB cards is the best option currently. These cards are increasingly harder to find, one reason that PDC v3 uses SD cards. One vendor that still carries these is http://www.flash-memory-store.com/.
-- Many experiments can be made simpler by generating signals from Matlab that can be used to encode some information about the current trial (this signal is then acquired along with any other experimental data). An inexpensive and reliable product for doing this is one of the USB DAQ modules from hhttp://www.mccdaq.com/. We have been using the 1208 series that has 2 analog output signals and is supported by the Matlab DAQ toolbox. 
-
+- Compact Flash (CF) card and reader. Any USB-based CF (or multi-format) reader will work. Even large patterns only require space measured in kilobytes, so any available CF card will be large enough, but it is advisable to get a high speed card. The fastest card we measured was a 128 MB Dane-Elec 45X card. Note: currently the system seems not to work with cards that are larger than 128 MB. This is certainly a solvable problem, but buying 128 MB cards is the best option currently. These cards are increasingly harder to find, one reason that PDC v3 uses SD cards. One vendor that still carries these is <http://www.flash-memory-store.com/>.
+- Many experiments can be made simpler by generating signals from Matlab that can be used to encode some information about the current trial (this signal is then acquired along with any other experimental data). An inexpensive and reliable product for doing this is one of the USB DAQ modules from <http://www.mccdaq.com/>. We have been using the 1208 series that has 2 analog output signals and is supported by the Matlab DAQ toolbox.
 
 # Download Code & PCB files
 
-This code is no longer officially supported or maintained, but has been used for years by at least 10 labs. The code is distributed "as is"; it works for me and I hope it works for you. **Michael Reiser and the Dickinson Lab are not liable for any damage caused by using (or misusing) this code.** Remember, programming microcontrollers is not as safe as PC programming, extreme caution must be taken to ensure that all connections are correct, and that the circuit boards are functioning – if anything smells like it is burning or gets hot – turn off immediately and recheck everything. 
+This code is no longer officially supported or maintained, but has been used for years by at least 10 labs. The code is distributed "as is"; it works for me and I hope it works for you. **Michael Reiser and the Dickinson Lab are not liable for any damage caused by using (or misusing) this code.** Remember, programming microcontrollers is not as safe as PC programming, extreme caution must be taken to ensure that all connections are correct, and that the circuit boards are functioning – if anything smells like it is burning or gets hot – turn off immediately and recheck everything.
 
-- [Panel Files Release 2](https://github.com/reiserlab/Panel-G3-Software/blob/master/assets/Panels_R2.zip)
+- [Panel Files Release 2](assets/panels_r2.zip)
 
 There are many changes that are included in the second release:
 
 - New control modes, numeric position control. This uses the function generator to numerically specify the current position. Implemented as a (signed) offset to the position specified by `Panel_com('set_position', [X,Y])`.
-- System can now support much larger patterns – previously a frame was limited to one block of the CF memory – 512 bytes. Now multi-block frames are supported. Tested with 48 panel gscale patterns (1152 bytes per frame). 
-- CF reading is slightly faster, no longer reads entire block, but stops once the number of bytes in the frame have been read. 
-- Row compression: for patterns that consist of identical data for all rows of the pattern. RC is enabled by setting pattern.row_compression = 1; in  the pattern-making script. An RC pattern will just consist of one row instead of 8, resulting is a speedup factor of at least 5. This feature required modification to the code on the main and CF controllers, the panel code, and a few of the MATLAB pattern making and displaying routines. 
-- Identity compression: For patterns that contain large swaths of pixels that are simply on or off. The controller can check to see if this is the case, and then just send the row-compressed version of the panel data for a panel that corresponds to a pattern piece that is all one value (works for grayscale too!). This feature is not used at pattern making time, but rather while the pattern is running. Identity compression can be enabled by invoking: Panel_com('ident_compress_on') from MATLAB. 
+- System can now support much larger patterns – previously a frame was limited to one block of the CF memory – 512 bytes. Now multi-block frames are supported. Tested with 48 panel gscale patterns (1152 bytes per frame).
+- CF reading is slightly faster, no longer reads entire block, but stops once the number of bytes in the frame have been read.
+- Row compression: for patterns that consist of identical data for all rows of the pattern. RC is enabled by setting pattern.row_compression = 1; in  the pattern-making script. An RC pattern will just consist of one row instead of 8, resulting is a speedup factor of at least 5. This feature required modification to the code on the main and CF controllers, the panel code, and a few of the MATLAB pattern making and displaying routines.
+- Identity compression: For patterns that contain large swaths of pixels that are simply on or off. The controller can check to see if this is the case, and then just send the row-compressed version of the panel data for a panel that corresponds to a pattern piece that is all one value (works for grayscale too!). This feature is not used at pattern making time, but rather while the pattern is running. Identity compression can be enabled by invoking: Panel_com('ident_compress_on') from MATLAB.
 - New (simpler) serial port interface from Matlab. Fixes previous problem sending certain values (byte values above 127) over the serial port.
-- Two new digital outputs: pulse to trigger a laser depending on pattern position, and an adjustable clock signal to trigger a camera. These are supported by commands in the panel_com function. 
-- Most of the C code (controller programs and the G3 panel code) is now compatible with newest version of GCC compiler. This required including a legacy.h file. 
-- Now releasing code for 3 generations of panels. The code in the previous release is now considered G2 code. G3 code is only slightly modified from G2 to support a new chip – the Atmega168 (slightly faster, bigger flash), using the same panel PCB. G1 code is included for the convenience of Dickinson Lab members who are still using the original design. All controller code is compatible with all 3 generations of panels. 
-- The distribution includes PCB files for a 12 panel ring, the typical configuration of a flight arena. 
+- Two new digital outputs: pulse to trigger a laser depending on pattern position, and an adjustable clock signal to trigger a camera. These are supported by commands in the panel_com function.
+- Most of the C code (controller programs and the G3 panel code) is now compatible with newest version of GCC compiler. This required including a legacy.h file.
+- Now releasing code for 3 generations of panels. The code in the previous release is now considered G2 code. G3 code is only slightly modified from G2 to support a new chip – the Atmega168 (slightly faster, bigger flash), using the same panel PCB. G1 code is included for the convenience of Dickinson Lab members who are still using the original design. All controller code is compatible with all 3 generations of panels.
+- The distribution includes PCB files for a 12 panel ring, the typical configuration of a flight arena.
 
 All files are being distributed in a single .zip file. This file contains 3 folders:
 
 - c code - code for the panels and the controller board. Each subfolder also contains the .hex file needed to program the individual microcontrollers. If no modification will be made to the c code, then the compiled .hex files are sufficient to build the system. To edit and compile the AVR c code, you will need to install a GCC compiler for the Atmel AVRs. We recommend the [WinAVR](http://winavr.sourceforge.net/ ) package, but there are others out there. Some of the modules used in the AVR c code, are taken from the Procyon AVRlib (link broken) package written by Pascal Stang. The code from the AVRlib is included in the distributed .zip file above, so you will not need to download this package, but you are encouraged to do so if you plan to do any serious Atmel programming.
-- schematics –schematic and PCB files for the panels and the controller. These files were created in Protel 99 SE. Each folder also contains a subfolder with all of the CAD files that are needed to order the PCBs. 
-- Matlab panels code – contains a folder called `MatlabRoot` that contains a series of subfolders. To set this up on a new system, the folder should be copied to the `C:\` drive (you want the subfolders to reside under `C:\matlabroot`). It is important to add these new folders and all subfolders to the Matlab path. There is a file called `panel_control_paths.m` that should be updated with the appropriate paths for the specified files, so that the installation will function on your PC. You will also need to the file [dd.exe](http://www.chrysocome.net/dd) (*Note: the original documentation linked to http://uranus.it.swin.edu.au/~jn/linux/rawwrite/dd-0.3.zip which is broken. The file is included in the zip, but should you require a different version, the above link might help you to get started*), but this is included in the folder of other files. This file is necessary to burn images onto the CompactFlash cards (from Windows). In `MatlabRoot\Panels\IO_tools\` there is a file called `get_CF_drive.m`, this file contains a hard-coded drive letter for the CF drive - you should update this letter to reflect your system. 
+- schematics –schematic and PCB files for the panels and the controller. These files were created in Protel 99 SE. Each folder also contains a subfolder with all of the CAD files that are needed to order the PCBs.
+- Matlab panels code – contains a folder called `MatlabRoot` that contains a series of subfolders. To set this up on a new system, the folder should be copied to the `C:\` drive (you want the subfolders to reside under `C:\matlabroot`). It is important to add these new folders and all subfolders to the Matlab path. There is a file called `panel_control_paths.m` that should be updated with the appropriate paths for the specified files, so that the installation will function on your PC. You will also need to the file [dd.exe](http://www.chrysocome.net/dd) (*Note: the original documentation linked to <http://uranus.it.swin.edu.au/~jn/linux/rawwrite/dd-0.3.zip> which is broken. The file is included in the zip, but should you require a different version, the above link might help you to get started*), but this is included in the folder of other files. This file is necessary to burn images onto the CompactFlash cards (from Windows). In `MatlabRoot\Panels\IO_tools\` there is a file called `get_CF_drive.m`, this file contains a hard-coded drive letter for the CF drive - you should update this letter to reflect your system.
 
 # Panels
 
@@ -72,11 +70,11 @@ The panels are the display devices in the system. They are individually addresse
 
 ## Panel Hardware
 
-The panels are a small package that contains a circuit board with a microprocessor and line driver, and an 8x8 LED dot matrix display. A full parts list and schematic is found in [Panel Parts](#Panel-Parts). Each Panel contains an Atmel Atmega8 microcontroller. If you plan to program the Atmel chip, it is a good idea to read the Atmega8 spec sheet. The other chip on the circuit board is an 8-channel darlington driver which acts as a current sink. Current is sourced from the Atmega8's outputs and then passes through a current limiting resistor and one column of the 8x8 LED display. An individual LED is turned on only if the corresponding row line is enabled on the 8-channel current sink, allowing current to flow. In this way it is possible to scan the entire 8x8 array
-and thus 64 LEDs can be individually controlled with 16 lines. Of course, for this to happen no more than 1 row of LEDs can actually be on at any one time, and so the LEDs must be scanned quickly to prevent the perception of flicker. Currently the entire display is refreshed at 4 kHz, and every LED that is on, is only on 12.5% of the time. 
+The panels are a small package that contains a circuit board with a microprocessor and line driver, and an 8×8 LED dot matrix display. A full parts list and schematic is found in [Panel Parts](#Panel-Parts). Each Panel contains an Atmel Atmega8 microcontroller. If you plan to program the Atmel chip, it is a good idea to read the Atmega8 spec sheet. The other chip on the circuit board is an 8-channel darlington driver which acts as a current sink. Current is sourced from the Atmega8's outputs and then passes through a current limiting resistor and one column of the 8×8 LED display. An individual LED is turned on only if the corresponding row line is enabled on the 8-channel current sink, allowing current to flow. In this way it is possible to scan the entire 8×8 array
+and thus 64 LEDs can be individually controlled with 16 lines. Of course, for this to happen no more than 1 row of LEDs can actually be on at any one time, and so the LEDs must be scanned quickly to prevent the perception of flicker. Currently the entire display is refreshed at 4 kHz, and every LED that is on, is only on 12.5% of the time.
 
-- [Panel v2.1 PCB (pdf)](https://github.com/reiserlab/Panel-G3-Hardware/blob/master/assets/Panel_PCB_v21.pdf)
-- [v2.1 Panel schematic (pdf)](https://github.com/reiserlab/Panel-G3-Hardware/blob/master/assets/Panel_schematic_v21.pdf)
+- [Panel v2.1 PCB (pdf)](assets/panel_pcb_v2p1.pdf)
+- [v2.1 Panel schematic (pdf)](assets/panel_schematic_v2p1.pdf)
 
 ## Panel Software
 
@@ -88,8 +86,7 @@ Multiple levels of //greenscale// patterns are supported by the panels. This is 
 
 ### Panel Address
 
-The address of each panel can be any integer from 1 - 127. The 0 address is reserved for a general call - all panels receive packets sent to address 0. The address displays when the panels turn on (and after a reset). Also immediately after a rest or power on, the panels enter a 0.5 second pause, and will be unresponsive to commands and patterns. Only two characters are shown (00 -
-99), and if the value is above 100, the top row of the panel is also  illuminated. It is necessary to give the panels addresses in an incremental manner. If 5 panels, all with address 0 are connected to the controller, and a change address command is issued, all panels with the same address will respond. Read the user guide for instructions on addressing panels. 
+The address of each panel can be any integer from 1 - 127. The 0 address is reserved for a general call - all panels receive packets sent to address 0. The address displays when the panels turn on (and after a reset). Also immediately after a rest or power on, the panels enter a 0.5 second pause, and will be unresponsive to commands and patterns. Only two characters are shown (00 - 99), and if the value is above 100, the top row of the panel is also  illuminated. It is necessary to give the panels addresses in an incremental manner. If 5 panels, all with address 0 are connected to the controller, and a change address command is issued, all panels with the same address will respond. Read the user guide for instructions on addressing panels.
 
 ## Programming the Panels
 
@@ -113,8 +110,8 @@ The Controller reads in pattern data from the CF card memory, accepts commands f
 
 The controller board contains 2 Atmega128 microcontrollers, one is dedicated to reading the pattern data from the CompactFlash card, and the other communicates with the PC and the panels display. The PCB design has been modified, so that connections with a case are rather simple.
 
-* [Controller v2.2 PCB (pdf)](https://github.com/reiserlab/Panel-G3-Hardware/blob/master/assets/Controller_PCB_v22.pdf)
-* [Controller v2.2 schematic (pdf)](https://github.com/reiserlab/Panel-G3-Hardware/blob/master/assets/Controller_schematic_v22.pdf)
+- [Controller v2.2 PCB (pdf)](assets/controller_pcb_v2p2.pdf)
+- [Controller v2.2 schematic (pdf)](assets/controller_schematic_v2p2.pdf)
 
 ### Power supplies
 
@@ -137,7 +134,7 @@ Programming the controller is similar to the process for programming each panel.
 6. Program the flash on the Atmega128 by selecting the **Program** tab and selecting the input hex file as: `mainctrl.hex`, and then programming the chip.
 7. It is always a good idea to verify both the program and the fuses to make sure these are set correctly.
 8. To program the CompactFlash controller, just repeat steps 1-7, except for:
-    1. Unplug the CF card if there is one in the socket. Also plug the 6 pin ISP cable into the 6 pin ISP header for the CF controller (labeled J8 on the PCB). 
+    1. Unplug the CF card if there is one in the socket. Also plug the 6 pin ISP cable into the 6 pin ISP header for the CF controller (labeled J8 on the PCB).
 9. program with the file `cfctrl.hex`.
 
 # To-dos & Wish List
@@ -149,7 +146,7 @@ As presented the system is fully functional and has been in regular use for more
 - program panels when they are plugged in, so they don't need to be programmed independently. Apparently this is possible, especially since the panels are set up to communicate with the TWI interface. Look at **Boot Loader Support** section in the AVR documentation. **PDC v3 and more recent software development supports this.**
 - re-mapable greenscales – the idea here is to be able to use binary, 2 level, patters and then be able to arbitrarily map the 0 and 1 values to any of the 8 greenscale levels. This scheme has basically been worked out (is in the distributed panels code, but commented out). This system needs to be tested, etc.
 - more efficient CF reading – that would start moving the bytes from the FIFO before the pattern is completely dumped – this should provide at least 10% faster frame rates. **Superseded by faster SD card reading in PDC v3**
-- more user-friendly installation that checks the CF card location, makes a temp folder if necessary, etc. 
+- more user-friendly installation that checks the CF card location, makes a temp folder if necessary, etc.
 - Some buttons on the PControl gui for quickly linking to experiment scripts.
 - Move storage of internal function generator functions onto the CF card, maybe increase the temporal resolution (100 Hz seems reasonable), and allow the function buffer length to vary. **Implemented in PDC v3**
 
@@ -159,55 +156,55 @@ Prices given are approximate (and circa 2006), are for 1 item of each, and apply
 
 ## Controller Parts
 
-These parts are required to make 1 controller: 
+These parts are required to make 1 controller:
 
 | quantity | part description               | source & p/n |
-| -------- | ------------------------------ | ------------ |
-|2         | [Atmega128](http://www.atmel.com/dyn/resources/prod_documents/doc2467.pdf) microcontroller, 64 TQFP package  | Digikey, ATMEGA128-16AI-ND ($10)  |
-|1       | [CY7C4251V-15AC FIFO](http://rocky.digikey.com/WebLib/Cypress/Web%20Data/CY7C4201V,11V,21V,31V,41V,51V,4421V.pdf), 32 TQFP package |      Digikey, 428-1229-ND ($18) |           
-|2       |  [DAC 8571](http://focus.ti.com/lit/ds/symlink/dac8571.pdf), I2C 16 bit, 8 MSOP package |     Digikey, 296-14307-1-ND ($5)|
-|1       | [Maxim RS-232 driver](http://pdfserv.maxim-ic.com/en/ds/MAX220-MAX249.pdf) |     Digikey, MAX233ACPP-ND ($8) |
-|5       | 150 Ohm 1/4 W resistor, 1206 package | Digikey, 311-150ECT-ND ($0.02) |          
-|9       | 10K Ohm 1/4 W resistor, 1206 package | Digikey, 311-10KECT-ND ($0.02) |          
-|2      |   16 MHz crystal oscillator   |   Digikey, X192-ND ($0.70)|
-|14     |   BNC connector, vertical PCB, mount  |  Digikey, A24504-ND ($1.50)       |
-|1      |   CF connector                   |Digikey, 478-2012-ND ($3.00)|
-|2      |   10-pin ribbon connector        |Digikey, M3AAA-1006R-ND ($2.50)|
-|2      |   6-pin male double-row headers  |Digikey, |
-|1      |   7805T, 5 V regulator           |Jameco, 51262 ($0.30) – optional!|
-|1      |   10 uH RF choke (inductor)      |Jameco, 208135 ($0.60)|
-|1      |   10 uF capacitors, tantalum     |Jameco, 33689 ($0.60)|
-|8      |   0.1 uF coupling caps, tant.    |Jameco, 332110 ($0.20)|
-|2      |   20-pin DIP socket              |Jameco, 38607CL ($0.10)|
-|5      |   rt. Angle, PCB mount LEDs      |Jameco, 104256(gr.), 104248(red) ($.25)|
-|2      |   push button switches           |Jameco,    |
-|4      |   22 pF (20%) capacitors         |Jameco, 15405 ($0.05)|
-|3      |   9-pin fem. rt. angle D-sub     |Jameco, 104951 ($0.50)|
-|1      |   5 pin fem. DIN connector       |Jameco, 29399 ($0.50)|
-|1-2    |   male single row 0.1" header    |Jameco, 160881 ($0.40)|
-|4      |   fem. single row header, 8 pin  |Jameco, 70754 ($0.40)|
-|2      |   TWI resistors – std. 1k Ohm    |Jameco, 29663 (peanuts)|
-|1      |   SPST toggle switch             |Jameco, 76523 ($1.00)|
-|1      |   power supply, 5V, min. 2A      |Jameco, 221487 (w DIN conn.) ($35) |
-|1      |   Controller PCB                 |ordered from Advanced Circuits |
+|---------:|:-------------------------------|:------------ |
+| 2        | [Atmega128](http://www.atmel.com/dyn/resources/prod_documents/doc2467.pdf) microcontroller, 64 TQFP package | Digi-Key, ATMEGA128-16AI-ND ($10) |
+| 1        | [CY7C4251V-15AC FIFO](http://rocky.digikey.com/WebLib/Cypress/Web%20Data/CY7C4201V,11V,21V,31V,41V,51V,4421V.pdf), 32 TQFP package | Digi-Key, 428-1229-ND ($18) |
+| 2        | [DAC 8571](http://focus.ti.com/lit/ds/symlink/dac8571.pdf), I2C 16 bit, 8 MSOP package | Digi-Key, 296-14307-1-ND ($5)|
+| 1        | [Maxim RS-232 driver](http://pdfserv.maxim-ic.com/en/ds/MAX220-MAX249.pdf) | Digi-Key, MAX233ACPP-ND ($8) |
+| 5        | 150Ohm 1/4W resistor, 1206 package | Digi-Key, 311-150ECT-ND ($0.02) |
+| 9        | 10kOhm 1/4W resistor, 1206 package | Digi-Key, 311-10KECT-ND ($0.02) |
+| 2        | 16 MHz crystal oscillator          | Digi-Key, X192-ND ($0.70) |
+| 1        | BNC connector, vertical PCB, mount | Digi-Key, A24504-ND ($1.50) |
+| 1        | CF connector                       | Digi-Key, 478-2012-ND ($3.00)|
+| 2        | 10-pin ribbon connector            | Digi-Key, M3AAA-1006R-ND ($2.50)|
+| 2        | 6-pin male double-row headers      | Digi-Key, |
+| 1        | 7805T, 5 V regulator               | Jameco, 51262 ($0.30) – optional!|
+| 1        | 10uH RF choke (inductor)           | Jameco, 208135 ($0.60) |
+| 1        | 10µF capacitors, tantalum          | Jameco, 33689 ($0.60) |
+| 8        | 0.1µF coupling caps, tant.         | Jameco, 332110 ($0.20) |
+| 2        | 20-pin DIP socket                  | Jameco, 38607CL ($0.10) |
+| 5        | rt. Angle, PCB mount LEDs          | Jameco, 104256(gr.), 104248(red) ($.25) |
+| 2        | push button switches               | Jameco |
+| 4        | 22pF (20%) capacitors              | Jameco, 15405 ($0.05) |
+| 3        | 9 pin fem. rt. angle D-sub         | Jameco, 104951 ($0.50) |
+| 1        | 5 pin fem. DIN connector           | Jameco, 29399 ($0.50) |
+| 12       | male single row 0.1" header        | Jameco, 160881 ($0.40) |
+| 4        | fem. single row header, 8 pin      | Jameco, 70754 ($0.40) |
+| 2        | TWI resistors – std. 1k Ohm        | Jameco, 29663 (peanuts) |
+| 1        | SPST toggle switch                 | Jameco, 76523 ($1.00) |
+| 1        | power supply, 5V, min. 2A          | Jameco, 221487 (w DIN conn.) ($35) |
+| 1        | Controller PCB                     | ordered from Advanced Circuits |
 
 Notes: male single row headers are needed in sizes of 2 and 3 - easiest thing to do is cut these from a larger strip. Female single row headers are needed in 8 row size, so easiest thing is to order these as a pre-sized piece from Jameco (also needed for flight arenas).
 
 ## Panel Parts
 
-These parts are required to make 1 panel. Part descriptions for major components are linked to spec sheets: 
+These parts are required to make 1 panel. Part descriptions for major components are linked to spec sheets:
 
 | quantity | part description               | source & p/n |
-| -------- | ------------------------------ | ------------ |
-|1         |  8*8 green [LED display](https://github.com/reiserlab/Panel-G3-Software/blob/master/assets/Green%20Panels%20BM-10288MD.pdf)    | American Bright, BM-10288MI ($2.50)|
-|1         |  8 Pin rt angle male header  | Major League, LTSHR-108-S-02-A-T ($0.23)|
-|1         |  8 Pin rt angle fem. header  | Major League, SSHR-108-S-02-L-T ($0.38)|
-|8         |   82 Ohm resistor, 1/10W, 1%, 0603 package | Digikey, 311-82.0HTR-ND ($0.005)|
-|1         |   1K Ohm resistor, 1/10W, 5%, 0603 package | Digikey, 311-10KGCT-ND ($0.02)|
-|1         |   0.33 uF capacitor, ceramic, 1206 package  | Digikey, PCC1889CT-ND ($0.09)|          
-|1         |   16 MHz ceramic resonator w. capacitors    | Digikey, X908-ND ($0.30)|
-|1         |   8CH line driver ULN2804A 8-SOL package (update link)| Digikey, ULN2804AFW-ND ($0.35)|
-|1         |  [Atmega8](http://www.atmel.com/dyn/resources/prod_documents/doc2486.pdf) microcontroller, 32 TQFP package| Digikey, ATMEGA8-16AI-ND ($2.25)|
-|1         |    Panel PCB			|   ordered from Advanced Circuits		|
+|---------:|:-------------------------------|:-------------|
+| 1        | 8×8 green [LED display]({{site.baseurl}}/Generation%203/Hardware/docs/assets/green-panels_BM-10288MD.pdf) | American Bright, BM-10288MI ($2.50) |
+| 1        | 8 Pin rt angle male header              | Major League, LTSHR-108-S-02-A-T ($0.23) |
+| 1        | 8 Pin rt angle fem. header              | Major League, SSHR-108-S-02-L-T ($0.38) |
+| 8        | 82Ohm resistor, 1/10W, 1%, 0603 package | Digi-Key, 311-82.0HTR-ND ($0.005) |
+| 1        | 1kOhm resistor, 1/10W, 5%, 0603 package | Digi-Key, 311-10KGCT-ND ($0.02) |
+| 1        | 0.33µF capacitor, ceramic, 1206 package | Digi-Key, PCC1889CT-ND ($0.09) |
+| 1        | 16MHz ceramic resonator w. capacitors   | Digi-Key, X908-ND ($0.30) |
+| 1        | 8 CH line driver ULN2804A 8-SOL package | Digi-Key, ULN2804AFW-ND ($0.35 )|
+| 1        | [Atmega8](http://www.atmel.com/dyn/resources/prod_documents/doc2486.pdf) microcontroller, 32 TQFP package| Digi-Key, ATMEGA8-16AI-ND ($2.25) |
+| 1        | Panel PCB                               | ordered from Advanced Circuits |
 
-Optional: 2 8-Pin straight female headers, Jameco p/n 70754 ($0.23), can be used so that the LED displays are socketed, this is convenient, but also will not guarantee ideal contact between circuit and display. 
+Optional: 2 8-Pin straight female headers, Jameco p/n 70754 ($0.23), can be used so that the LED displays are socketed, this is convenient, but also will not guarantee ideal contact between circuit and display.
