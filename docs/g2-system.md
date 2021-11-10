@@ -9,7 +9,7 @@ nav_order: 20
 
 Author: [Michael Reiser](https://github.com/mbreiser)
 
-This is a rather new system and still has a very small user community. As we get more users, it is very important to make use of peoples' experiences, suggestions, and improvements. I am especially eager to have people offer to improve the documentation. Please send any updates, improvements, troubleshooting suggestions, etc. to the mailing list (after joining it, of course). This page documents the technical details of the system. A [user guide](assets/flight_simulator_user_guide3.doc), written by Mark Frye, Michael Dickinson, and Michael Reiser, introduces new users to this system (and its use as a flight arena for flies).
+This is a rather new system and still has a very small user community. As we get more users, it is very important to make use of peoples' experiences, suggestions, and improvements. I am especially eager to have people offer to improve the documentation. Please send any updates, improvements, troubleshooting suggestions, etc. to the mailing list (after joining it, of course). This page documents the technical details of the system. A [user guide](g2-user-guide.md), written by Mark Frye, Michael Dickinson, and Michael Reiser, introduces new users to this system (and its use as a flight arena for flies).
 
 # System Overview
 

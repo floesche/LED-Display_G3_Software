@@ -16,7 +16,7 @@ grand_parent: Generation 3
 
 When we use the frame dumping mode to stream frame data from PC to controller directly (serial port baud rate 921600), we found the frame rate can reach the benchmark value. ie, for gs = 1, the maximum frame rate is 190 and when gs = 3, the maximum is 70. When we set the rate higher than the maximum, using timer function in matlab, the panel will freeze.
 
-We increased the serial port baud rate from 115200 to 460800, the maxium frame rate increased linearly. When we set the baud rate to 921600, the system froze if we let the system ran as fast as it can. The reason is the I2C set a bottleneck to the maximum frame rate at which the system can run. That is why we don't need to set a higher serial port baud rate although the maximum baud rate the xmega controller can reach is 1843200.
+We increased the serial port baud rate from 115200 to 460800, the maximum frame rate increased linearly. When we set the baud rate to 921600, the system froze if we let the system ran as fast as it can. The reason is the I2C set a bottleneck to the maximum frame rate at which the system can run. That is why we don't need to set a higher serial port baud rate although the maximum baud rate the XMega controller can reach is 1843200.
 
 We also did the jitter testing for the frame dumping mode and the results are list as the following tables.
 
@@ -25,11 +25,11 @@ We also did the jitter testing for the frame dumping mode and the results are li
 Grayscale = 1, no row compression,  sampling rate 10K
 
 | Frame Rate| 10| 20| 30| 40| 50| 60| 70| 80| 90| 100| 110| 120|
-| ------------------ | -------- | -------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- | ------------ | ------- | -------- | 
+| ------------------ | -------- | -------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- | ------------ | ------- | -------- |
 | Mean IFI           | 0.1000   | 0.0500   | 0.0330    | 0.0250    | 0.0200    | 0.0170    | 0.0140    | 0.0130    | 0.0110    | 0.0100      | 0.0090  | 0.0080   |
 | Standard deviation | 0.2129e-3| 0.2098-3 | 0.1894e-3 | 0.2049e-3 | 0.3416e-3 | 0.2750e-3 | 0.2622e-3 | 0.3126e-3 | 0.1770e-3 | 0.2711e-3 | 0.2312e-3 | 0.3226e-3|
 | Min IFI            | 0.0985   | 0.0487   | 0.0321| 0.0237| 0.0150| 0.0136| 0.0120| 0.0077| 0.0100| 0.0055| 0.0066| 0.0064|
-| Max IFI            | 0.1008   | 0.0513| 0.0338| 0.0265| 0.0253| 0.0204| 0.0155| 0.0182| 0.0116| 	0.0145| 0.0108| 0.0090|
+| Max IFI            | 0.1008   | 0.0513| 0.0338| 0.0265| 0.0253| 0.0204| 0.0155| 0.0182| 0.0116| 0.0145| 0.0108| 0.0090|
 
 ## Test 2
 
@@ -41,7 +41,6 @@ Grayscale = 3, no row compression,  sampling rate 10K
 | Standard deviation | 0.3335e-3 | 0.2650e-3 |0.3247e-3 | 0.4414e-3 | 0.3226e-3 | 0.2213e-3 |
 | Min IFI            | 0.0974    | 0.0475    | 0.0286   | 0.0167    | 0.0166    | 0.0164    |
 | Max IFI            | 0.1028    | 0.0524    |0.0368    | 0.0332    | 0.0247    | 0.0178    |
-
 
 # Jitter Testing
 
@@ -100,11 +99,11 @@ Method two: save each frame data starting from a new sector (512 byte each secto
 | Min IFI            | 0.1000 | 0.0492 | 0.0323 | 0.0237 | 0.0188 | 0.0155 |
 | Max IFI            | 0.1026 | 0.0522 | 0.0353 | 0.0270 | 0.0219 | 0.018  |
 
-# Pattern making 
+# Pattern making
 
 When making large patterns and previewing them with the PControl GUI, the data field of the pattern struct is not necessary. Commenting out the following line will allow you to view the pattern in the pattern player before taking the time to make them for writing to the SD card (which requires the data field): `pattern.data = make_pattern_vector(pattern);`
 
-# Gains over 127 
+# Gains over 127
 
 For making the gain faster. This does not allow reaching the maximum speed, which could be reached having nonzero values for both gain and bias in a given channel, but just lets values greater than 127 be piped into a normal workflow. The conversion is `gain = bias * 2.5`.
 

@@ -48,7 +48,7 @@ The sensor of the wingbeat analyzer (WBA) is composed of two infrared-sensitive 
 
 Viewed from above (fly facing up the page), the shadow cast by the wings (shown in *gray*) must be laterally centered over the cutaway mask (dashed outline), a bit behind the forward edge. The size of the shadow is also important and can be adjusted by (1) moving the fly vertically, (2) moving the IR wand vertically, (3) moving the sensor surface vertically. Once these dimensional adjustments have been optimized, you should maintain them from experiment to experiment by placing the flies in the same position. 
 
-![Wing shadow on Wingbeat Analyzer](../assets/website_wingbeat-shadow.png)
+![Wing shadow on Wingbeat Analyzer](assets/user-guide_wingbeat-shadow.png){:.pop}
 
 The IR wing sensor provides the analog signal to the wingbeat analyzer, which in turn detects the frequency and amplitude of the downstroke-upstroke reversal, also called the ventral flip. Proper fly alignment over the sensor is crucial – the wingbeat analyzer is a robust instrument and will report spurious values even if the input signal is messy.
 
@@ -56,7 +56,7 @@ If the fly is properly focused over the sensor, then the resultant signal from t
 
 ---
 
-![Good hütchen](../assets/website_good-huetchens.png){: width="30%" .float-right}
+![Good hütchen](assets/user-guide_good-huetchens.png){:.ifr .pop}
 
 - Narrow waveform
 - Looks like a little hat == "hütchens"
@@ -68,7 +68,7 @@ If the fly is properly focused over the sensor, then the resultant signal from t
 ---
 {: .clear}
 
-![Bad broad hütchen](../assets/website_bad-huetchens_broad.png){: width="30%" .float-right}
+![Bad broad hütchen](assets/user-guide_bad-huetchens_broad.png){:.ifr .pop}
 
 - Broad waveform
 - No cycle-by-cycle amplitude variation
@@ -79,7 +79,7 @@ If the fly is properly focused over the sensor, then the resultant signal from t
 ---
 {: .clear}
 
-![Bad narrow hütchen](../assets/website_bad-huetchens_narrow.png){: width="30%" .float-right}
+![Bad narrow hütchen](assets/user-guide_bad-huetchens_narrow.png){:.ifr .pop}
 
 - Narrow waveform
 - "Quantal" cycle-by-cycle amplitude variation
@@ -93,6 +93,7 @@ If the fly is properly focused over the sensor, then the resultant signal from t
 The WBA tracks the analog wing sensor signal voltage, and measures a suite of parameters for each wing stroke (defined by the inflections in the hütchens occurring between the user-defined trigger and gate values):
 
 Inputs
+
 - **Source**: left or right wing to set Gate and Trigger
 - **Trigger**: voltage threshold to detect peak of downstroke
 - **Gate**: time frame to detect peak of downstroke
@@ -100,6 +101,7 @@ Inputs
 - **Filter**: low-pass filter analog sensor signals
 
 Outputs
+
 - **Left**: analog signal from IR wing sensor 
 - **Right**: analog signal from IR wing sensor
 - **Frequency**: stroke frequency in cycles/sec
@@ -110,7 +112,7 @@ Outputs
 
 # Panel Controller
 
-![PControl screenshot](../assets/website_pcontrol.png){:.float-right}
+![PControl screenshot](assets/user-guide_pcontrol.png){:.ifr .pop}
 
 We tend to refer to the tiled LED array as the "arena", composed of individual "panels", the image they display as "patterns", and the black box that gives it all life the "controller."
 
@@ -128,7 +130,7 @@ We tend to refer to the tiled LED array as the "arena", composed of individual "
 ### Open-Loop operation
 
 Once you have loaded a pattern to display in the arena, set the menu options in the X and Y front panel drop down menus to *Open Loop: function X*{:.gui-btn}, and *Open Loop: function Y*{:.gui-btn} (the default modes). Hit *Start*{:.gui-btn}. Play with the Gain and Offset values at will. Can you figure out what X pos and Y pos do? Program a moving pattern by using the *functions*{:.gui-btn} menu to load periodic waveforms. Now manipulate the Gain and Offset controls and hit *Start*{:.gui-btn}.
-	
+
 ### Open Loop with an external waveform 
 
 From the *patterns*{:.gui-btn} menu, load the checkerboard pattern (hopefully, it is Pattern Index 1). Connect the output of a function generator to ADC1. From the X drop down menu, select *Position: CH5 sets X ind*{:.gui-btn}. Set the X Gain to 2.0 and hit *Start*{:.gui-btn}. Vary the controls on the function generator, and verify that the pattern moves in register with function generator output. Move the checkerboard pattern horizontally by loading an internal function in the Y-channel and selecting the drop-down menu *Open  Loop: function X*{:.gui-btn}.
@@ -267,10 +269,9 @@ str = [directory_name '\Pattern_example1']
 save(str, 'pattern');
 ```
 
-
 ## Accelerating your patterns
 
-![speed measurement](../assets/website_debug.png){: width="40%" .float-right}
+![speed measurement](assets/user-guide_debug.png){:.ifr .pop}
 
 Let's face it, we all like speed. All the fancy things that one can do with the controller will usually incur a cost—the patterns will probably display slower. By slower, we mean that the controller will spend more time refreshing an individual frame, and thus to keep up with the expected display rate (either set in open-loop by the function generator, or in closed-loop by the fly), the controller will drop frames. Suppose that we want the controller to display a 10 frame pattern at 250 Hz, but the maximum achievable frame rate is 95 Hz. The figure on the right should give a rough idea of the actual sequence of displayed frames as compared to the desired sequence. 
 How do you know your maximum achievable rate? Benchmark your pattern. This can be done automatically using the controller—the results are sent out through PC2 serial port. A quick and dirty benchmark can be performed by manually increasing the display rate and observing when the skip-indicating LED (green one, next to the power on LED in the middle of the controller box) starts to blink. 
@@ -396,7 +397,6 @@ Set trigger rate – sets the rate (frequency) of the optional camera trigger.\\
 Arguments: 1 value, that must be an integer between 0 and 255.\\
 Usage: `Panel_com('set_trigger_rate', [100]); % sets the trigger to 100 fps.`
 
-        
 ## Commands useful for setup/debugging
 
 Toggle the LED – as a debugging measure, blinks the second green LED on the controller\\
@@ -443,7 +443,6 @@ for j = 0:19
 end
 ```
 Note: functions must be made of signed values, between -127 and + 127, and must be scaled, so that a value of 20 corresponds to 1V [e.g. `scaled_func = round(20.*func);`].
-
 
 # Technical Appendix 2 – Timing information in each operation mode {#technical-appendix-2}
 
@@ -523,3 +522,7 @@ if (temp_x_val < 0) {index_x = x_num - ((abs(temp_x_val))%x_num); }
 As you may notice, this implementation uses the function generator as an offset of the value stored in `X_pos_index`, which is set when a new X,Y position is sent to the controller. In this way the same function can be replayed, at different positions (in functions space), without recreating the function.
 
 **mode 5, function generator debug mode** – in this mode, the controller does not update the display, it plays out the function generator through the DAC outputs. The 0-5V DAC output range is used to represent a -5 to + 5 range, so the zero of the function is shifted up to 2.5 V and the range is compressed by a factor of 2 (e.g. -5V is sent out as a zero, 0V as 2.5 V, + 5V as 5V).
+
+# Original file
+
+This user guide is an online version of the original [flight simulator user guide](assets/flight_simulator_user_guide3.doc) (available for download in the original file format).
