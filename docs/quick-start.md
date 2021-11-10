@@ -48,7 +48,7 @@ To get up and running quickly you will need to download the following:
     1. If this is all done correctly the LED should display 127 and the display should be bright with no flicker. If it appears dull or flickery - the clock was probably not set correctly. It is always a good idea to verify both the program and the fuses to make sure these are set correctly.
     1. Once a panel is programmed it needs to be addressed, this is done using the PControl software.
 
-## Note
+## AVR Studio 4 Note
 
 1. A combined version, which include both the bootloader and panel code, can be download [here](assets/panel_combined.hex). You can also build the combined hex file with the following steps.
     1. open `panel.hex` with Notepad++ and save it as `panel_combined.hex`
@@ -116,6 +116,6 @@ First download and install the following:
 1. Using the command prompt, change directory (cd) to where the hex and bat files were downloaded.
 1. In quick succession: turn the controller off, then on, and run the bat file, this should program the controller. If this fails, try changing the time between switching the controller on and running the bat file.
 
-## Note
+## Atmel Studio 7 Note
 
 a flash card may be needed to program the controller.
