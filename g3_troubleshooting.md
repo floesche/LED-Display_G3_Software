@@ -2,6 +2,7 @@
 title: Troubleshooting
 parent: Software
 grand_parent: Generation 3
+nav_order: 4
 ---
 
 
@@ -19,8 +20,7 @@ If you have the "Rev B" arena base (upper right corner reads "JF-MR-FY0001-RevB"
 
 ## Error when trying to show bus number
 
-This error could be due to several problems, but the most likely is that the panels must be reprogrammed with a newer version of the firmware, that contains the instructions to respond to this command. If you are already going to the trouble or re-programming panels, make sure to install the bootloader as well, this will save time when updating later. 
-
+This error could be due to several problems, but the most likely is that the panels must be reprogrammed with a newer version of the firmware, that contains the instructions to respond to this command. If you are already going to the trouble or re-programming panels, make sure to install the bootloader as well, this will save time when updating later.
 
 ## Matlab error Open PControl without serial port connection after reboot/killing matlab
 
@@ -28,7 +28,7 @@ This error can be fixed by simply turning off the controller, unplugging the con
 
 ## Strange behavior of patterns on a nonstandard panel setup
 
-This error has been noticed when trying to use a subset of panels in a normal setup, or another such modification to using a 'full' set of panels in an arena. The issue lies with a panel map with nonconsecutive numbered panel addresses. Currently a limitation of the pattern data generation is data should be provided to all panels from 1 to the maximum panel ID in the map no matter whether each panel exists or not. For example, the following map will give odd behavior: 
+This error has been noticed when trying to use a subset of panels in a normal setup, or another such modification to using a 'full' set of panels in an arena. The issue lies with a panel map with nonconsecutive numbered panel addresses. Currently a limitation of the pattern data generation is data should be provided to all panels from 1 to the maximum panel ID in the map no matter whether each panel exists or not. For example, the following map will give odd behavior:
 
 ```matlab
 1     12     8     4    11     7     3
@@ -36,7 +36,7 @@ This error has been noticed when trying to use a subset of panels in a normal se
 25    36    32    28    35    31    27
 ```
 
-due to skips in numbering from 1 to 36. This problem can be overcome by using a map of the same dimensions, with consecutive numbering: 
+due to skips in numbering from 1 to 36. This problem can be overcome by using a map of the same dimensions, with consecutive numbering:
 
 ```matlab
 1      7     5     3     6     4     2
@@ -44,15 +44,14 @@ due to skips in numbering from 1 to 36. This problem can be overcome by using a 
 15    21    19    17    20    18    16
 ```
 
-This issue will be corrected in future firmware releases. 
+This issue will be corrected in future firmware releases.
 
-
-# Known Issues 
+# Known Issues
 
 1. If the address of a panel in an arena has been set to zero, we cannot change the panel address to an nonzero address. That is why we set a nonzero address, 127, as a default address in panel.eep.
-1. If you have trouble running get_SD_drive.m, you need to check: 1) make sure the hard-coded SD drive letter is the correct drive; 2) path of fsutil.exe is included in the environment variable PATH.
-1. When writing experimental script,  Panel_com('set_pattern_id', i) should be called before Panel_com('set_position', [m n]). If not, the system will freeze.
-1. From the PControl UI it is possible to get the controller to hang if you send many updates of pattern position or gain\bias in a short period of time. This is also possible in a script. The simple remedy is to place stop\start commands before and after the gain\bias or position change. We have done this for the PControl GUI (updated in code v1.1), but without being aware of this you might crash the controller from a script. A more elegant solution would be to handle this on the controller side, and we might implement this in the future. <<issue 3>>
-1. If using an SD card that has not been formatted after many writes, the onset time of position functions may be affected. If you notice there is a large delay to the start of a position or velocity function, try formatting the SD card (fat32) for better performance. Alternatively, adding a several milisecond pause after the set position function command can also fix this issue (for minor offsets). 
+1. If you have trouble running `get_SD_drive.m`, you need to check: 1) make sure the hard-coded SD drive letter is the correct drive; 2) path of `fsutil.exe` is included in the environment variable PATH.
+1. When writing experimental script, `Panel_com('set_pattern_id', i)` should be called before `Panel_com('set_position', [m n])`. If not, the system will freeze.
+1. From the PControl UI it is possible to get the controller to hang if you send many updates of pattern position or gain/bias in a short period of time. This is also possible in a script. The simple remedy is to place stop/start commands before and after the gain/bias or position change. We have done this for the PControl GUI (updated in code v1.1), but without being aware of this you might crash the controller from a script. A more elegant solution would be to handle this on the controller side, and we might implement this in the future.
+1. If using an SD card that has not been formatted after many writes, the onset time of position functions may be affected. If you notice there is a large delay to the start of a position or velocity function, try formatting the SD card (fat32) for better performance. Alternatively, adding a several millisecond pause after the set position function command can also fix this issue (for minor offsets).
 
-For more hardware oriented troubleshooting, see the [panels-hardware troubleshooting guide](https://github.com/reiserlab/Panel-G3-Hardware/wiki/Troubleshooting).
+For more hardware oriented troubleshooting, see the [panels-hardware troubleshooting guide]({{site.baseurl}}/Generation%203/Hardware/docs/troubleshooting.html).

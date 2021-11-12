@@ -2,6 +2,7 @@
 title: Performance
 parent: Software
 grand_parent: Generation 3
+nav_order: 3
 ---
 
 
