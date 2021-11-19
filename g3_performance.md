@@ -52,7 +52,8 @@ To format a SD card, we have two ways (supposing the SD disk drive is E)
 1. use dos command `format E: /Q/FS:FAT32/A:32K`
 2. use matlab command `dos('format E: /Q/FS:FAT32/A:32K');`
 
-Note: In the case 'Format' is not recognized as a internal or external command, you need to add the path `C:\Windows\System32` at the end of the windows environment variable PATH.
+__Note__: In the case 'Format' is not recognized as a internal or external command, you need to add the path `C:\Windows\System32` at the end of the windows environment variable PATH.
+{:.info}
 
 The jitter test results using a formatted SD using the above methods are list as follows:
 

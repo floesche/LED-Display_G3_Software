@@ -1,5 +1,5 @@
 /*
-Panel boot-loader via twi
+Panel bootloader via twi
 This code is located in the bootloader section of the flash memory (0x3800 - 0x3fff).
 
 Fuse bits:
