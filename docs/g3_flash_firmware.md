@@ -71,10 +71,10 @@ First download and install the following:
 
 1. Make sure the panel controller is recognized as COM3 in Device Manager and PControl (MATLAB). Disconnect the cable between I2C on the the panel controller and the arena.
 1. Connect the programming device to the 6 pin header, labelled Panel ISP, in the left corner of the panel controller front panel. Connect a LED panel to the ISP port just below Panel ISP with a ribbon.
-1. Open AVR Studio 5 and select Tools > AVR Programming. In the dialog box, select Tool > AVRRSP mkII (or other ISP device), Device > ATmega168A (or ATmega168), Interface > ISP. Click "Apply", then "Read", "Read" for Device ID and Target Voltage. (Target voltage should be 5.0 V)
+1. Open AVR Studio 5 and select *Tools*{:.gui-btn} → *AVR Programming*{:.gui-btn}. In the dialog box, select *Tool*{:.gui-btn} → *AVRRSP mkII*{:.gui-btn} (or other ISP device), *Device*{:.gui-btn} → *ATmega168A*{:.gui-btn} (or ATmega168), *Interface*{:.gui-btn} → *ISP*{:.gui-btn}. Click *Apply*{:.gui-btn}, then *Read*{:.gui-btn}, *Read*{:.gui-btn} for Device ID and Target Voltage. (Target voltage should be 5.0 V)
 1. If successfully read, move on, otherwise check the connections, restart, etc.
-1. In the Interface settings pane, drag ISP Clock to 250 kHz, click "Set".
-1. In the Memories pane, Click "Erase Device" to make sure there's no code in the flash memory.
+1. In the Interface settings pane, drag ISP Clock to 250 kHz, click *Set*{:.gui-btn}.
+1. In the Memories pane, Click *Erase Device*{:.gui-btn} to make sure there's no code in the flash memory.
 1. Program the fuses - this is done from the Fuses pane - these options should be set:
     - BOOTSZ choose 1024W_1C00
     - BOOTRST
@@ -82,12 +82,12 @@ First download and install the following:
     - EESAVE
     - BODLEVEL choose 4V3
     - SUT_CKSEL choose EXTFSXTAL_16KCK_14CK 65MS
-    - Click "Program". The info pane should say "Verify fuses...OK".
+    - Click *Program*{:.gui-btn}. The info pane should say "Verify fuses...OK".
 1. Program the panel codes.
-    - Go to the Memories pane.
-    - make sure to uncheck "Erase device before programming".
-    - select the panel_combined.hex as input Hex File for Flash and program it
-    - select the panel.eep as input Hex file for EEPROM and program it
+    - Go to the *Memories*{:.gui-btn} pane.
+    - make sure to uncheck *Erase device before programming*{:.gui-btn}.
+    - select the `panel_combined.hex` as input Hex File for Flash and program it
+    - select the `panel.eep` as input Hex file for EEPROM and program it
     - The info pane should say OK.
 1. If this is all done correctly the LED panel should display 127 and the display should be bright with no flicker. If it appears dull or flickery - the clock was probably not set correctly. It is always a good idea to verify both the program and the fuses to make sure these are set correctly. Sometimes the Fuses settings change randomly after a panel is programed and need to be re-entered.
 1. Once a panel is programmed it needs to be addressed, this is done using PControl in MATLAB. If PControl can't change the panel address, exit PControl, turn the panel controller off and on, then restart PControl.
@@ -104,7 +104,7 @@ First download and install the following:
     1. Choose AVRISP MKII in Tool, choose ATxmega128A1 in Device. Interface PDI, click Apply button
     1. Click Read button, you can get the Device signature and Target Voltage
     1. In the fuses tab, choose boot loader reset for the BOOTRST and press program button
-    1. In the memories tab, choose the boot loader hex file in the flash frame and then press program button, refer to the [image](https://github.com/reiserlab/Panel-G3-Software/blob/master/assets/Atmel%20Studio%207.png).
+    1. In the memories tab, choose the boot loader hex file in the flash frame and then press program button, refer to the [image](assets/atmel-studio-7.png).
     1. Choose the [`panelcontroller.hex`](assets/panelcontroller.hex) Rev1.3 in the flash frame and uncheck the erase flash before programming. Press program button.
 
 # Programming New (V3.0) Controllers
