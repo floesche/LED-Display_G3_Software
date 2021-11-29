@@ -1105,8 +1105,8 @@ void eeprom_panel(uint8_t panel_num)
 
 static void put_rc(FRESULT rc)
 {
-    const prog_char *p;
-    static const prog_char str[] =
+    const char *p;
+    static const char str[] =
             "OK\0" "DISK_ERR\0" "INT_ERR\0" "NOT_READY\0" "NO_FILE\0" "NO_PATH\0"
             "INVALID_NAME\0" "DENIED\0" "EXIST\0" "INVALID_OBJECT\0" "WRITE_PROTECTED\0"
             "INVALID_DRIVE\0" "NOT_ENABLED\0" "NO_FILE_SYSTEM\0" "MKFS_ABORTED\0" "TIMEOUT\0";
