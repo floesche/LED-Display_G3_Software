@@ -13,7 +13,7 @@ load('Pcontrol_paths.mat');
 dos(['del /Q "' temp_path '\*.pat"']); % SS
 
 for j = 1:num_patterns
-    load([file_list(j).PathName '\' file_list(j).FileName]);
+    load([file_list(j).PathName '\' file_list(j).FileName], 'pattern');
  
     % determine if row_compression is on
     row_compression(j) = 0;

@@ -54,7 +54,7 @@ guidata(hObject, handles);
 global currentState;
 load('Pcontrol_paths.mat');
 pattFullName = fullfile(pattern_path, currentState.pattName);
-load(pattFullName);
+load(pattFullName,'pattern');
     
 if (all(pattFullName ~= 0))
     handles.pattern = pattern;
