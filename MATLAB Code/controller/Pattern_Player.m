@@ -167,7 +167,7 @@ load('Pcontrol_paths.mat');
 cd(pattern_path)
 [FileName,PathName] = uigetfile('P*.mat','Select a Pattern File');
 if (all(FileName ~= 0))
-    load([PathName FileName]);
+    load([PathName FileName],'pattern');
     handles.pattern = pattern;
 
     handles.pattern_x_size = pattern.x_num;

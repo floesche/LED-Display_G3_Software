@@ -2,7 +2,7 @@
 
 filename = fullfile(pathname, filename);
 
-load(filename);
+load(filename,'pattern');
 %load('D:\Michael_Reiser\XmegaController_Matlab\Patterns\Pattern_4x4_blocks_48.mat');
 pattern.row_compression = 0;
 
