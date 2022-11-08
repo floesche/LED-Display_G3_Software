@@ -1,9 +1,9 @@
 # Modular display system, Generation 3, Software
 
-This repository contains the software for the G3 system. Find more information on the [Modular LED Display website](https://reiserlab.github.io/Modular-LED-Display/) under the [Generation 3](https://reiserlab.github.io/Modular-LED-Display/Generation%203) menu.
+This repository contains the software for the G3 system. Find more information on the [Modular LED Display website](https://reiserlab.github.io/Modular-LED-Display/) under the [Generation 3](https://reiserlab.github.io/Modular-LED-Display/G3) menu.
 
 The whole system of 3rd generation modular displays was described in:
 
 Reiser, Michael B.; Dickinson, Michael H. (2008): "A modular display system for insect behavioral neuroscience". In: *Journal of Neuroscience Methods*. 167 (2), pp.&nbsp;127–139, DOI: [10.1016/j.jneumeth.2007.07.019](https://doi.org/10.1016/j.jneumeth.2007.07.019).
 
-Before June 2020, this repository was hosted on <https://bitbucket.org/mreiser>.
+Before June 2020, this repository was hosted on `https://bitbucket.org/mreiser`.
