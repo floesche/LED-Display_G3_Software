@@ -334,7 +334,6 @@ end
 clear AO
 ```
 
-{: .note-title}
 > __Important Note__
 >
 >There are many other possible ways to set up an experiment script, here are a few:
@@ -345,6 +344,7 @@ clear AO
 > - Make the experiment script into a function that can take a number of
 > individual stimuli as input. This is useful if some conditions did not
 > run properly during the first repetitions.
+{: .warning}
 
 ## Acquiring the Data
 
@@ -486,3 +486,7 @@ graphed! More data, such as the frame index, and the wing beat frequency
 could be added to this data set as well.
 
 This brings us to the end of the first sample experiment tutorial.
+
+## Original file
+
+This user guide is an online version of the original appendix (available for [download in the original file format](assets/Flight%20Arena%20Appendix%201%20(exp%20scripts).docx)).

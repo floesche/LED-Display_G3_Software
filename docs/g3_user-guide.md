@@ -280,7 +280,7 @@ If the fly is properly focused over the sensor, then the resultant
 signal from both the left and right outputs of the wingbeat analyzer
 should look like this _for each wing stroke_:
 
-{: .highlight-title }
+
 > __Good hütchens__
 > {: .label .label-green }
 >
@@ -291,10 +291,8 @@ should look like this _for each wing stroke_:
 > - Looks like a little hat == _hütchens_
 > - quantal cycle-by-cycle amplitude _pops_
 > - Second peak larger than first
-{: .clear}
+{: .clear }
 
-
-{: .highlight-title }
 > __Bad Hütchens__
 > {: .label .label-red}
 > 
@@ -309,7 +307,6 @@ should look like this _for each wing stroke_:
 > fly is likely too far forward over the mask
 {: .clear}
 
-{: .highlight-title }
 > __Bad Hütchens__
 > {: .label .label-red}
 > 
@@ -322,8 +319,6 @@ should look like this _for each wing stroke_:
 > Fly is either too far away from the sensor surface, or too far from IR source, or both
 {: .clear}
 
-
-{: .highlight-title }
 > __Good hütchens__
 > {: .label .label-green }
 >
@@ -535,7 +530,8 @@ Panel_com('start'); % begin pattern motion
 pause(20); % let the pattern run for 20 seconds
 Panel_com('stop'); % stop pattern motion
 ```
-Panel_com commands are detailed in [Technical Appendix 1]({{site.baseurl}}/Generation%203/Software/docs/g3_user-guide_technical-appendix.html).
+
+`Panel_com` commands are detailed in [Technical Appendix 1]({{site.baseurl}}/Generation%203/Software/docs/g3_user-guide_technical-appendix.html).
 
 ## Example Experiments
 
@@ -671,7 +667,7 @@ save(str, 'pattern');
 
 ### Accelerating your patterns
 
-![](assets/user-guide_acceleration.png){:.ifr .pop}
+![Measurements](assets/user-guide_acceleration.png){:.ifr .pop}
 
 Let’s face it, we all like speed. All the fancy things that one can do with
 the controller will usually incur a cost—the patterns will probably
@@ -705,7 +701,7 @@ of the controller box) starts to blink.
     enable row compression, simply make a pattern with only one row per
     panel, and include the setting (`pattern.row_compression = 1;`) in the
     pattern making script. See example above.
-3.  Use ‘identity’ compression. The general method outlined for making
+3. Use ‘identity’ compression. The general method outlined for making
     and sending patterns is simple (elegant, perhaps) but should strike
     no one as _optimal_. Many patterns contain large swaths of pixels
     that are simply on or off. One simple shortcut that has been
@@ -722,9 +718,9 @@ of the controller box) starts to blink.
     to determine if a particular panel’s piece of the pattern can be
     sent as a single row, will slow things down considerably and never
     find a compressible pattern patch.
-4.  Use _super-speed mode_ where for small patterns with few frames, the
+4. Use _super-speed mode_ where for small patterns with few frames, the
     data can be stored locally on the panels.
-5.  Think outside the box… Each pattern can probably be optimized in its
+5. Think outside the box… Each pattern can probably be optimized in its
     own way.
 
 ### Programming the SD Flash Card
@@ -733,35 +729,34 @@ The SD card is where you store patterns and functions for running the
 arena. These are programmed onto the SD card using __PControl__ and then
 moved to the Controller.
 
-1.  Once you have a collection of patterns that you wish to display in
+1. Once you have a collection of patterns that you wish to display in
     the arena, put them all into `C:\matlabroot\patterns\`. You may in
     fact put them any place you wish, but this is the default directory.
-2.  Plug a SD Flash card into a port, using a USB card reader. Verify
+2. Plug a SD Flash card into a port, using a USB card reader. Verify
     that it appears as a drive letter (usually E).
-3.  In MATLAB, run `PControl`, and select _configurations_{:.gui-btn} → _load pattern
+3. In MATLAB, run `PControl`, and select _configurations_{:.gui-btn} → _load pattern
     to SD_{:.gui-btn}.
-4.  In the _Pattern Selection_{:.gui-txt} window, press _Add Folder_{:.gui-btn}, navigate and
+4. In the _Pattern Selection_{:.gui-txt} window, press _Add Folder_{:.gui-btn}, navigate and
     select the folder storing your pattern files. You may also
     individually add the patterns, if this becomes time consuming to
     achieve the correct order of patterns, consider naming each pattern
     as `Pattern_##_id` where `##` is the number you wish the pattern to
     be and id is an identifying name. This will ensure the patterns in
     the folder selected are added in the correct order
-5.  Hit _OK_{:.gui-btn}.
-6.  In the _Pattern Selection Tool_{:.gui-txt} window, verify the patterns you want
+5. Hit _OK_{:.gui-btn}.
+6. In the _Pattern Selection Tool_{:.gui-txt} window, verify the patterns you want
     to store.
-7.  Press _Make Image_{:.gui-btn}, then _Burn_{:.gui-btn}. If you are prompted for the drive
+7. Press _Make Image_{:.gui-btn}, then _Burn_{:.gui-btn}. If you are prompted for the drive
     letter at any time, type it into the prompt and press OK.
-8.  DO NOT take out the SD card until you see a message confirming that
+8. DO NOT take out the SD card until you see a message confirming that
     the SD card writing is finished.
-9.  Plug the SD card into the arena controller. You may need to turn the
+9. Plug the SD card into the arena controller. You may need to turn the
     controller off and on for it to recognize the card correctly.
 10. To test the pattern, open up `PControl` and select _configurations_{:.gui-btn} →
     _set pattern ID_{:.gui-btn} → _your pattern_{:.gui-btn} (from the dropdown menu). Now you can
     use the PControl GUI to run your pattern by selecting values and
     pressing the _start_{:.gui-btn} button.
 
-{: note}
 To be able to _automatically_ access the patterns on an SD
 card from the PControl GUI, you must be using the SD on the same machine
 on which it was programmed. If you need to load patterns from an SD card
@@ -769,6 +764,7 @@ programmed onto another machine (or if you see that patterns and/or
 functions copied onto the card behave strangely, you should synchronize
 the SD information from the card to your PC by clicking on the
 _controller_{:.gui-btn} → _sync SD info_{:.gui-btn} menu items in the PControl GUI.
+{: .warning}
 
 ### Loading Functions to SD card
 
@@ -784,3 +780,7 @@ similar, except you use _configurations_{:.gui-btn} → _load config to SD_{:.gu
 document currently does not explain arena configurations, but these are
 a critical aspect of running the v3.0 arena. For these exercises, use
 the default configurations provided for you.
+
+## Original file
+
+This user guide is an online version of the original flight simulator user guide (available for [download in the original file format](assets/Flight%20Arena%20User%20Guide%202022.docx)).
